@@ -12,7 +12,7 @@ bot.command({
   name: "bot",
   code: `
   
-  $addField[1;Система;**Опе
+  $addField[1;Система;**Оперативная память**: \`$ram\ MB` / \`$maxRam MB\`
   $addField[1;Стартер AoiClient;**Автор**: $getObjectProperty[author]
   **Описание**: $getObjectProperty[description]
   **Версия**: $getObjectProperty[version]]
