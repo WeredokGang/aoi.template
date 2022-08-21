@@ -1,0 +1,22 @@
+{
+  "name": "AoiClient Starter",
+  "description": "Минималистический cтартер для aoi.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [ "aoi.js starter", "aoijs starter" ],
+  "author": "Weredok#4565",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "^16.7.0"
+  },
+  "devDependencies": {
+    "node": "^16.7.0"
+  },
+  "dependencies": {
+    "aoi.js": "^5.5.0"
+  }
+}
