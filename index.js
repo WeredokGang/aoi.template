@@ -9,6 +9,11 @@ const bot = new AoiClient({
 bot.onMessage();
 
 bot.command({
-  name: "ping",
-  code: `Pong! $pingms`
+  name: "bot",
+  code: `
+  
+  
+  $addField[1;Стартер AoiClient;**Автор**: $getsssSSS|
+  $title[Информация о боте $userTag[$clientID]]
+  $createObject[$readFile[package.json]]`
 })
