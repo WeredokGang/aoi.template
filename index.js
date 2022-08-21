@@ -37,9 +37,17 @@ bot.guildJoin({
 
 bot.command({
   name: "int",
-  code: `$addButton[1;Кнопкa;1;button]
-  $addButton[1;Кнопкa;2;button]
-  $addButton[1;Кнопкa;3;button]
-  $addButton[1;Кнопкa;4;button]
-  $addButton[1;Кнопкa;5;https://discord.io/WeredokGang]
-  $addSelectMenu[2;selectmenu;Меню выбора;1;1;no;Опция:Значение опции;
+  code: `$addSelectMenu[2;selectmenu;Меню выбора;1;1;no;Опция:Значение опции:yes]
+  $addButton[1;Кнопкa;link;https://discord.io/WeredokGang]
+  $addButton[1;Кнопкa;danger;Красная Кнопка]
+  $addButton[1;Кнопкa;success;Зелёная Кнопка]
+  $addButton[1;Кнопкa;secondary;Серая Кнопка]
+  $addButton[1;Кнопкa;primary;Синяя Кнопка]
+  Примеры интерактивных взаимодействий`
+}); //Создаёт сообщение для взаимодействий
+
+bot.interactionCommand({
+  name: "Синяя Кнопка",
+  prototype: "button",
+  code: `$interactionReply[Это - невидимое сообщение. Его видишь только ты.;;;;;;yes]`
+}); //Примпр невидимого интерактивного ответа
