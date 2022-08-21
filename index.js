@@ -12,8 +12,10 @@ bot.command({
   name: "bot",
   code: `
   
-  
-  $addField[1;Стартер AoiClient;**Автор**: $getsssSSS|
+  $addField[1;Система;**Опе
+  $addField[1;Стартер AoiClient;**Автор**: $getObjectProperty[author]
+  **Описание**: $getObjectProperty[description]
+  **Версия**: $getObjectProperty[version]]
   $title[Информация о боте $userTag[$clientID]]
   $createObject[$readFile[package.json]]`
 })
