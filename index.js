@@ -1,15 +1,15 @@
 const {AoiClient} = require("aoi.js");
 const bot = new AoiClient({
-  token: process.env.token,
-  prefix: ["!", "?"],
-  intents: ["guilds", "guildMessages", "guildMembers"],
-  mobilePlatform: false,
+  token: "", //Токен авторизации бота
+  prefix: ["!", "?"], //Префикс(ы) бота
+  intents: ["guilds", "guildMessages", "guildMembers"], //Интенты бота
+  mobilePlatform: false //Мобильная платформа
 });
 
-bot.onMessage();
-bot.onGuildJoin();
-bot.onJoin();
-bot.onInteractionCreate();
+bot.onMessage(); //Реагирование на сообщения
+bot.onGuildJoin(); //Присоединение бота к любому серверу
+bot.onJoin(); //Присоединение пользователя к любому серверу
+bot.onInteractionCreate(); //Интерактивные взаимодействия
 
 bot.command({
   name: "bot",
@@ -22,21 +22,21 @@ bot.command({
   **Версия**: $getObjectProperty[version]]
   $title[Информация о боте $userTag[$clientID]]
   $createObject[$readFile[package.json]]`
-}); //Утилита информации о боте
+}); //Утилита информации о боте из файла package.json
 
 bot.joinCommand({
   code: `$sendDm[Добро пожаловать на сервер $serverName! Ты стал $membersCount участником для нас!;$authorId] 
   $onlyIf[$isUserDMEnabled==true;]`
-}); //Приветствие пользователя в ЛС
+}); //Приветствие пользователя в ЛС, если он у него включен
 
 bot.readyCommand({
   code: `$log[Запущено $userTag[$clientID]: $serverCount серверов]`
-}); //Информация о запуске клиента
+}); //Информация о запуске работы клиента в консоли
 
 bot.guildJoinCommand({
   code: `$sendDm[Я присоединился на сервер $serverName;$botOwnerID]
   $onlyIf[$isUserDMEnabled[$botOwnerID]==true;]`
-}); //Уведомление о присоединении бота к серверy
+}); //Уведомление о присоединении бота к любому серверy
 
 bot.command({
   name: "int",
