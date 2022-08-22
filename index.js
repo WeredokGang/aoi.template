@@ -37,14 +37,21 @@ bot.guildJoin({
 
 bot.command({
   name: "int",
+  code: `$createApplicationCommand[$guildID;int;Создаёт сообщение для интерактивных взаимодействий;;slash]`
+}); //Создаёт слэш-команду для интерактивных взаимодействий
+
+bot.interactionCommand({
+  name: "int",
+  prototype: "slash",
   code: `$addSelectMenu[2;selectmenu;Меню выбора;1;1;no;Опция:Значение опции:yes]
   $addButton[1;Кнопкa;link;https://discord.io/WeredokGang]
   $addButton[1;Кнопкa;danger;Красная Кнопка]
   $addButton[1;Кнопкa;success;Зелёная Кнопка]
   $addButton[1;Кнопкa;secondary;Серая Кнопка]
   $addButton[1;Кнопка;primary;Синяя Кнопка]
-  Примеры интерактивных взаимодействий`
-}); //Создаёт сообщение для взаимодействий
+  Примеры интерактивных взаимодействий
+  $interactionReply[Ниже - почти все виды и примеры для интерактивных взаимодействий. Ты можешь их смешивать так как тебе захочется, всё будет работать если в твоих задумках будет логика. Чтобы не было **Ошибки Взаимодействия** используй функцию, при помощи которой сделан этот ответ.]`
+}); //Создаёт сообщение для взаимодействий + ответ на слэш-команду
 
 bot.interactionCommand({
   name: "Синяя Кнопка",
@@ -61,5 +68,23 @@ bot.interactionCommand({
 bot.intrecationCommand({
   name: "Зелёная Кнопка",
   prototype: "button",
-  code: `$interactionUpdate[Это - отключение всех кнопок. Ты должен их указать в опции components.;;{actionRow:{button:Кнопка:primary:Синяя Кнопка:yes}{button:Кнопка:secondary:Серая Кнопка:yes}{button:Кнопка:sucess:Зелёная Кнопка:yes}{button:Кнопка:danger:Красная Кнопка:yes}}{actionRow:{selectMenu: :selectmenu: :1:1:yes: : : :no}}]`
+  code: `$interactionUpdate[Это - отключение всех кнопок. Ты должен их указать в опции components.;;{actionRow:{button:Кнопка:primary:Синяя Кнопка:yes}{button:Кнопка:secondary:Серая Кнопка:yes}{button:Кнопка:sucess:Зелёная Кнопка:yes}{button:Кнопка:danger:Красная Кнопка:yes}}{actionRow:{selectMenu: :selectmenu:Меню Выбора:1:1:yes:Опция:Описание Опции:Опция:no}}]`
 }); //Отключение всех кнопок при нажатии на кнопку 
+
+bot.interactionCommand({
+  name: "Красная Кнопка",
+  prototype: "button",
+  code: `$interactionModal[Заголовок;Модальное Окно;{actionRow:{textInput:Название поля:1:Поле:no:Надпись на поле:12:180:Заполнение поля}}]`
+}); //Создание модального окна при нажатии кнопки
+
+bot.interactionCommand({
+  name: "Модальное Окно",
+  prototype: "modal",
+  code: `$interactionReply[$textInputValue[Поле]]`
+}); //Ответ модального окна после того как пользователь отправит форму
+
+bot.interactionCommand({
+  name: "Меню Выбора",
+  prototype: "selectMenu",
+  code: `$interactionReply[Вы выбрали опцию \`$message\`]`
+}); //Ответ меню выбора после выбора опции. Опция выводится в $message.
