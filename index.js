@@ -42,7 +42,7 @@ bot.command({
   $addButton[1;Кнопкa;danger;Красная Кнопка]
   $addButton[1;Кнопкa;success;Зелёная Кнопка]
   $addButton[1;Кнопкa;secondary;Серая Кнопка]
-  $addButton[1;Кнопкa;primary;Синяя Кнопка]
+  $addButton[1;Кнопка;primary;Синяя Кнопка]
   Примеры интерактивных взаимодействий`
 }); //Создаёт сообщение для взаимодействий
 
@@ -50,4 +50,16 @@ bot.interactionCommand({
   name: "Синяя Кнопка",
   prototype: "button",
   code: `$interactionReply[Это - невидимое сообщение. Его видишь только ты.;;;;;;yes]`
-}); //Примпр невидимого интерактивного ответа
+}); //Пример невидимого интерактивного ответа
+
+bot.interactionCommand({
+  name: "Серая Кнопка",
+  prototype: "button",
+  code: `$interactionUpdate[Это - обновление сообщения по нажатию кнопки.]`
+}); //Обновление сообщение при помощи нажатая кнопки
+
+bot.intrecationCommand({
+  name: "Зелёная Кнопка",
+  prototype: "button",
+  code: `$interactionUpdate[Это - отключение всех кнопок. Ты должен их указать в опции components.;;{actionRow:{button:Кнопка:primary:Синяя Кнопка:yes}{button:Кнопка:secondary:Серая Кнопка:yes}{button:Кнопка:sucess:Зелёная Кнопка:yes}{button:Кнопка:danger:Красная Кнопка:yes}}{actionRow:{selectMenu: :selectmenu: :1:1:yes: : : :no}}]`
+}); //Отключение всех кнопок при нажатии на кнопку 
