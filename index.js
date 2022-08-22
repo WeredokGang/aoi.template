@@ -1,17 +1,20 @@
 const {AoiClient} = require("aoi.js");
 const bot = new AoiClient({
-  token: "DISCORD BOT TOKEN",
+  token: process.env.token,
   prefix: ["!", "?"],
-  intents: ["guilds", "guildMessages"],
+  intents: ["guilds", "guildMessages", "guildMembers"],
   mobilePlatform: false,
 });
 
 bot.onMessage();
+bot.onGuildJoin();
+bot.onJoin();
+bot.onInteractionCreate();
 
 bot.command({
   name: "bot",
   code: `
-  $addField[1;Система;**Оперативная память**: \`$ram\ MB` / \`$maxRam MB\`
+  $addField[1;Система;**Оперативная память**: \`$ram\ MB\` \`$maxRam MB\`
   **Процессор**: \`$cpu %\`
   **Пинг**: \`$ping мс\`]
   $addField[1;Стартер AoiClient;**Автор**: $getObjectProperty[author]
@@ -27,10 +30,10 @@ bot.joinCommand({
 }); //Приветствие пользователя в ЛС
 
 bot.readyCommand({
-  code: `$log[Запущено $userTag: $serverCount серверов]`
+  code: `$log[Запущено $userTag[$clientID]: $serverCount серверов]`
 }); //Информация о запуске клиента
 
-bot.guildJoin({
+bot.guildJoinCommand({
   code: `$sendDm[Я присоединился на сервер $serverName;$botOwnerID]
   $onlyIf[$isUserDMEnabled[$botOwnerID]==true;]`
 }); //Уведомление о присоединении бота к серверy
@@ -43,7 +46,7 @@ bot.command({
 bot.interactionCommand({
   name: "int",
   prototype: "slash",
-  code: `$addSelectMenu[2;selectmenu;Меню выбора;1;1;no;Опция:Значение опции:yes]
+  code: `$addSelectMenu[2;selectMenu;Меню выбора;1;1;no;Опция:Описание опции:Значение опции]
   $addButton[1;Кнопкa;link;https://discord.io/WeredokGang]
   $addButton[1;Кнопкa;danger;Красная Кнопка]
   $addButton[1;Кнопкa;success;Зелёная Кнопка]
@@ -56,7 +59,7 @@ bot.interactionCommand({
 bot.interactionCommand({
   name: "Синяя Кнопка",
   prototype: "button",
-  code: `$interactionReply[Это - невидимое сообщение. Его видишь только ты.;;;;;;yes]`
+  code: `$interactionReply[Это - невидимое сообщение. Его видишь только ты.;;;;;yes]`
 }); //Пример невидимого интерактивного ответа
 
 bot.interactionCommand({
@@ -65,10 +68,10 @@ bot.interactionCommand({
   code: `$interactionUpdate[Это - обновление сообщения по нажатию кнопки.]`
 }); //Обновление сообщение при помощи нажатая кнопки
 
-bot.intrecationCommand({
+bot.interactionCommand({
   name: "Зелёная Кнопка",
   prototype: "button",
-  code: `$interactionUpdate[Это - отключение всех кнопок. Ты должен их указать в опции components.;;{actionRow:{button:Кнопка:primary:Синяя Кнопка:yes}{button:Кнопка:secondary:Серая Кнопка:yes}{button:Кнопка:sucess:Зелёная Кнопка:yes}{button:Кнопка:danger:Красная Кнопка:yes}}{actionRow:{selectMenu: :selectmenu:Меню Выбора:1:1:yes:Опция:Описание Опции:Опция:no}}]`
+  code: `$interactionUpdate[Это - отключение всех кнопок. Ты должен их указать в опции components.;;{actionRow:{button:Кнопка:primary:Синяя Кнопка:yes}{button:Кнопка:secondary:Серая Кнопка:yes}{button:Кнопка:success:Зелёная Кнопка:yes}{button:Кнопка:danger:Красная Кнопка:yes}}]`
 }); //Отключение всех кнопок при нажатии на кнопку 
 
 bot.interactionCommand({
@@ -84,7 +87,7 @@ bot.interactionCommand({
 }); //Ответ модального окна после того как пользователь отправит форму
 
 bot.interactionCommand({
-  name: "Меню Выбора",
+  name: "Меню выбора",
   prototype: "selectMenu",
   code: `$interactionReply[Вы выбрали опцию \`$message\`]`
 }); //Ответ меню выбора после выбора опции. Опция выводится в $message.
